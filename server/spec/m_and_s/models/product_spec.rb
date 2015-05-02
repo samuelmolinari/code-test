@@ -39,7 +39,9 @@ describe ::MAndS::Product do
 
     describe 'when valid' do
       it 'has a valid name, code and price' do
-        build(:product).valid?.must_equal true
+        build(:jeans).valid?.must_equal true
+        build(:socks).valid?.must_equal true
+        build(:blouse).valid?.must_equal true
       end
     end
   end
