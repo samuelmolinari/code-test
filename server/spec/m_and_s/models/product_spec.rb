@@ -13,7 +13,7 @@ describe ::MAndS::Product do
     end
 
     it 'can be initialised with a price' do
-      price = Money.new(1000, 'GBP')
+      price = Money.new(1000, MAndS::DEFAULT_CURRENCY)
       MAndS::Product.new(price: price).price.must_equal price
     end
   end
