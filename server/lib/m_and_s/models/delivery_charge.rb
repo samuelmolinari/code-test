@@ -3,9 +3,10 @@ module MAndS
   class DeliveryCharge
     attr_accessor :min_spend, :cost
 
-    def initialize(min_spend: nil, cost: nil)
-      self.min_spend = min_spend
-      self.cost = cost
+    def initialize(min_spend: Money.new(0, DEFAULT_CURRENCY),
+                   cost: Money.new(0, DEFAULT_CURRENCY))
+      @min_spend = min_spend
+      @cost = cost
     end
 
     def valid?

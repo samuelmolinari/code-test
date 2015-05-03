@@ -5,10 +5,10 @@ module MAndS
   class Product
     attr_accessor :name, :code, :price
 
-    def initialize(name: nil, code: nil, price: nil)
-      self.name = name
-      self.code = code
-      self.price = price
+    def initialize(name: '', code: '', price: Money.new(0, DEFAULT_CURRENCY))
+      @name = name
+      @code = code
+      @price = price
     end
 
     def valid?
