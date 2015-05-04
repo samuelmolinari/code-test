@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'money',   '~> 6.5'
+gem 'rake',    '~> 10.4'
 
 group :development do
   gem 'guard',          '~> 2.12'

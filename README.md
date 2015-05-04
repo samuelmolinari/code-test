@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/samuelmolinari/code-test.svg?branch=master)](https://travis-ci.org/samuelmolinari/code-test)
+
 ## Tests
 
 ``rake test:all`` runs specs, coverage and style
