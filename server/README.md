@@ -1,16 +1,16 @@
-# Run tests
+## Run tests
 
-``rake test:all``
+``rake test:all`` runs specs, coverage and style
 
-## MiniTest only
+### MiniTest only
 
-``rake test``
+``rake test`` runs all the minitest specs
 
-## With coverage
+### With coverage
 
-``rake test:coverage``
+``rake test:coverage`` runs specs and coverage using simplecov
 
-## Style only
+### Style only
 
-``rake test:style``
+``rake test:style`` checks style using rubocop
 
