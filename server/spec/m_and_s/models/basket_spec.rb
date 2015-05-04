@@ -158,4 +158,15 @@ describe ::MAndS::Basket do
       end
     end
   end
+
+  describe '#sub_total' do
+    it 'sums all the prices of each product added in the basket' do
+      basket.add(code: jeans.code)
+        .add(code: socks.code)
+        .add(code: socks.code)
+        .add(code: blouse.code)
+      basket.sub_total.must_equal jeans.price + socks.price * 2 + blouse.price
+    end
+  end
+
 end

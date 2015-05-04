@@ -28,6 +28,15 @@ module MAndS
       @basket
     end
 
+    def sub_total
+      @basket.inject(Money.new(0, DEFAULT_CURRENCY)) do |sub_total, arr|
+        product_code = arr[0]
+        quantity = arr[1]
+
+        sub_total + (get_product(code: product_code).price * quantity)
+      end
+    end
+
     private
 
     def build_catalog(products: [])
