@@ -2,6 +2,7 @@ require 'simplecov'
 SimpleCov.start
 
 require 'minitest/autorun'
+require 'pry'
 require_relative '../lib/m_and_s'
 require_relative 'support/factory_girl'
 
