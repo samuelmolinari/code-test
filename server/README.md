@@ -1,4 +1,4 @@
-## Run tests
+## Tests
 
 ``rake test:all`` runs specs, coverage and style
 
