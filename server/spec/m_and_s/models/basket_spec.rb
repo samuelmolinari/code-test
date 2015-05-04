@@ -131,4 +131,31 @@ describe ::MAndS::Basket do
       basket.get_product(code: 'NA').must_equal nil
     end
   end
+
+  describe '#add' do
+    describe 'when code doesn\'t match a product in the catalog' do
+      it 'raises an argument error' do
+        proc do
+          basket.add(code: 'NA')
+        end.must_raise MAndS::Basket::UnknownProductError
+      end
+    end
+
+    describe 'when product code is in the catalog' do
+      describe 'when product is not in the basket' do
+        it 'adds the product in the basket with a quantity of 1' do
+          basket.add(code: jeans.code)
+          basket.get.must_equal(jeans.code => 1)
+        end
+      end
+
+      describe 'when product is in the basket' do
+        it 'increment the product quantity by one' do
+          basket.add(code: jeans.code)
+            .add(code: jeans.code)
+          basket.get.must_equal(jeans.code => 2)
+        end
+      end
+    end
+  end
 end

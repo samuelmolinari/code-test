@@ -12,6 +12,22 @@ module MAndS
       @offers = offers
       @basket = {}
     end
+
+    def add(code: nil)
+      product = get_product(code: code)
+      fail UnknownProductError unless product.is_a? Product
+      @basket[code] = (@basket[code] || 0) + 1
+      self
+    end
+
+    def get_product(code: nil)
+      @catalog[code]
+    end
+
+    def get
+      @basket
+    end
+
     private
 
     def build_catalog(products: [])
