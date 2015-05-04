@@ -29,10 +29,8 @@ module MAndS
     end
 
     def sub_total
-      @basket.inject(Money.new(0, DEFAULT_CURRENCY)) do |sub_total, arr|
-        product_code = arr[0]
-        quantity = arr[1]
-
+      @basket.inject(Money.new(0, DEFAULT_CURRENCY)) do |sub_total, item|
+        product_code, quantity = item
         sub_total + (get_product(code: product_code).price * quantity)
       end
     end
@@ -48,6 +46,7 @@ module MAndS
 
     def delivery_charge(amount: 0)
       cost = 0
+
       @delivery_charges.each do |delivery_charge|
         if amount >= delivery_charge.min_spend
           cost = delivery_charge.cost
@@ -55,6 +54,7 @@ module MAndS
           break
         end
       end
+
       cost
     end
 
