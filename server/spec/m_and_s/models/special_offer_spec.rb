@@ -33,4 +33,20 @@ describe ::MAndS::SpecialOffer do
       offer.outcome.get(product: product)[:discount].must_equal 50
     end
   end
+
+  describe '#valid?' do
+    describe 'when invalid' do
+      it 'has an invalid outcome' do
+        MAndS::SpecialOffer.new(criteria: build(:criteria),
+                                outcome: build(:invalid_outcome))
+          .valid?.wont_equal true
+      end
+
+      it 'has an invalid criteria' do
+        MAndS::SpecialOffer.new(criteria: build(:invalid_criteria),
+                                outcome: build(:outcome))
+          .valid?.wont_equal true
+      end
+    end
+  end
 end

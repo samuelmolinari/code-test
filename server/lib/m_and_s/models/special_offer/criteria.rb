@@ -25,6 +25,10 @@ module MAndS
         @criteria_hash.delete(product.code)
         self
       end
+
+      def valid?
+        @criteria_hash.all? { |_, qty| qty > 0 }
+      end
     end
   end
 end

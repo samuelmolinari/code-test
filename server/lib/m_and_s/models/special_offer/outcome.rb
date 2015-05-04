@@ -19,6 +19,13 @@ module MAndS
         @outcome_hash.delete(product.code)
         self
       end
+
+      def valid?
+        @outcome_hash.all? do |_, outcome|
+          outcome[:quantity] > 0 &&
+            outcome[:discount] > 0 && outcome[:discount] <= 100
+        end
+      end
     end
   end
 end

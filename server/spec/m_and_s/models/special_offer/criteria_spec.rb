@@ -4,14 +4,18 @@ describe ::MAndS::SpecialOffer::Criteria do
   let(:jeans) { build(:jeans) }
   let(:criteria) { MAndS::SpecialOffer::Criteria.new }
 
-  describe '#add' do
-    it 'returns the criteria' do
-      criteria.add(product: jeans).must_equal criteria
+  before do
+    @basket_struct = Struct.new(:basket) do
+      def get
+        basket
+      end
     end
+  end
 
+  describe '#add' do
     it 'adds product and quantity to the criteria' do
       criteria.add(product: jeans, quantity: 2)
-      criteria.get(product: jeans).must_equal 2
+        .get(product: jeans).must_equal 2
     end
 
     describe 'when a product has already been added' do
@@ -19,32 +23,38 @@ describe ::MAndS::SpecialOffer::Criteria do
         criteria
           .add(product: jeans, quantity: 2)
           .add(product: jeans, quantity: 1)
-        criteria.get(product: jeans).must_equal 3
+          .get(product: jeans).must_equal 3
       end
     end
   end
 
   describe '#set' do
-    it 'returns the criteria' do
-      criteria.set(product: jeans).must_equal criteria
-    end
-
     it 'adds and replace any already existing quantity' do
       criteria.add(product: jeans, quantity: 2)
-      criteria.set(product: jeans, quantity: 1)
-      criteria.get(product: jeans).must_equal 1
+        .set(product: jeans, quantity: 1)
+        .get(product: jeans).must_equal 1
     end
   end
 
   describe '#remove' do
-    it 'returns the criteria' do
-      criteria.remove(product: jeans).must_equal criteria
-    end
-
     it 'removes the product if it exists' do
       criteria.add(product: jeans, quantity: 1)
-      criteria.remove(product: jeans)
-      criteria.get(product: jeans).must_equal 0
+        .remove(product: jeans)
+        .get(product: jeans).must_equal 0
+    end
+  end
+
+  describe '#valid?' do
+    describe 'when invalid' do
+      it 'has products with a quantity of zero or below' do
+        criteria.set(product: jeans, quantity: -1)
+          .valid?.wont_equal true
+
+        criteria.set(product: jeans, quantity: 0)
+          .valid?.wont_equal true
+      end
+    end
+  end
     end
   end
 end

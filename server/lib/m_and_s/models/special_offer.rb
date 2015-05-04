@@ -35,5 +35,9 @@ module MAndS
 
       SpecialOffer.new(criteria: criteria, outcome: outcome)
     end
+
+    def valid?
+      criteria.valid? && outcome.valid?
+    end
   end
 end
