@@ -6,4 +6,5 @@ module MAndS
   require_relative 'm_and_s/models/product'
   require_relative 'm_and_s/models/delivery_charge'
   require_relative 'm_and_s/models/special_offer'
+  require_relative 'm_and_s/models/basket'
 end
