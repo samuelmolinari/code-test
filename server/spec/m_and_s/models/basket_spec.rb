@@ -34,7 +34,7 @@ describe ::MAndS::Basket do
         proc do
           MAndS::Basket.new(delivery_charges: delivery_charges,
                             offers: offers)
-        end.must_raise MAndS::Basket::ProductsError
+        end.must_raise MAndS::ProductsError
       end
 
       it 'is invalid when containing non product items' do
@@ -42,7 +42,7 @@ describe ::MAndS::Basket do
           MAndS::Basket.new(delivery_charges: delivery_charges,
                             offers: offers,
                             products: [jeans, Object.new, 'test'])
-        end.must_raise MAndS::Basket::ProductsError
+        end.must_raise MAndS::ProductsError
       end
 
       it 'is invalid when empty' do
@@ -50,7 +50,7 @@ describe ::MAndS::Basket do
           MAndS::Basket.new(delivery_charges: delivery_charges,
                             offers: offers,
                             products: [])
-        end.must_raise MAndS::Basket::ProductsError
+        end.must_raise MAndS::ProductsError
       end
 
       it 'is invalid when some products are invalid' do
@@ -58,7 +58,7 @@ describe ::MAndS::Basket do
           MAndS::Basket.new(delivery_charges: delivery_charges,
                             offers: offers,
                             products: [build(:product_without_name)])
-        end.must_raise MAndS::Basket::ProductsError
+        end.must_raise MAndS::ProductsError
       end
     end
 
@@ -67,7 +67,7 @@ describe ::MAndS::Basket do
         proc do
           MAndS::Basket.new(products: products,
                             offers: offers)
-        end.must_raise MAndS::Basket::DeliveryChargesError
+        end.must_raise MAndS::DeliveryChargesError
       end
 
       it 'is invalid when containing non delivery charge items' do
@@ -75,7 +75,7 @@ describe ::MAndS::Basket do
           MAndS::Basket.new(delivery_charges: ['test', Object.new],
                             offers: offers,
                             products: products)
-        end.must_raise MAndS::Basket::DeliveryChargesError
+        end.must_raise MAndS::DeliveryChargesError
       end
 
       it 'is invalid when empty' do
@@ -83,7 +83,7 @@ describe ::MAndS::Basket do
           MAndS::Basket.new(delivery_charges: [],
                             offers: offers,
                             products: products)
-        end.must_raise MAndS::Basket::DeliveryChargesError
+        end.must_raise MAndS::DeliveryChargesError
       end
 
       it 'is invalid when some delivery charges are invalid' do
@@ -92,7 +92,7 @@ describe ::MAndS::Basket do
                             [build(:delivery_charge_without_cost)],
                             offers: offers,
                             products: products)
-        end.must_raise MAndS::Basket::DeliveryChargesError
+        end.must_raise MAndS::DeliveryChargesError
       end
     end
 
@@ -102,7 +102,7 @@ describe ::MAndS::Basket do
           MAndS::Basket.new(delivery_charges: delivery_charges,
                             offers: ['hi', Object.new],
                             products: products)
-        end.must_raise MAndS::Basket::SpecialOffersError
+        end.must_raise MAndS::SpecialOffersError
       end
 
       it 'is invalid when containing invalid offers' do
@@ -110,7 +110,7 @@ describe ::MAndS::Basket do
           MAndS::Basket.new(delivery_charges: delivery_charges,
                             offers: [build(:invalid_offer)],
                             products: products)
-        end.must_raise MAndS::Basket::SpecialOffersError
+        end.must_raise MAndS::SpecialOffersError
       end
     end
 
@@ -137,7 +137,7 @@ describe ::MAndS::Basket do
       it 'raises an argument error' do
         proc do
           basket.add(code: 'NA')
-        end.must_raise MAndS::Basket::UnknownProductError
+        end.must_raise MAndS::UnknownProductError
       end
     end
 

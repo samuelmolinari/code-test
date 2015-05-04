@@ -3,8 +3,6 @@ module MAndS
   VERSION = '0.0.1'
   DEFAULT_CURRENCY = 'GBP'
 
-  require_relative 'm_and_s/models/product'
-  require_relative 'm_and_s/models/delivery_charge'
-  require_relative 'm_and_s/models/special_offer'
-  require_relative 'm_and_s/models/basket'
+  require_relative 'm_and_s/exceptions'
+  require_relative 'm_and_s/models'
 end
