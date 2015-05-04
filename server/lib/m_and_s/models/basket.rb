@@ -39,6 +39,18 @@ module MAndS
 
     private
 
+    def delivery_charge(amount: 0)
+      cost = 0
+      @delivery_charges.each do |delivery_charge|
+        if amount >= delivery_charge.min_spend
+          cost = delivery_charge.cost
+        else
+          break
+        end
+      end
+      cost
+    end
+
     def build_catalog(products: [])
       @catalog = Hash[products.collect { |item| [item.code, item] }]
     end
