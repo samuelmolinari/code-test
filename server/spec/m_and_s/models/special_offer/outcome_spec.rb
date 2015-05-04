@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe ::MAndS::SpecialOffer::Outcome do
   let(:jeans) { build(:jeans) }
+  let(:socks) { build(:socks) }
   let(:outcome) { MAndS::SpecialOffer::Outcome.new }
 
   before do
@@ -55,9 +56,57 @@ describe ::MAndS::SpecialOffer::Outcome do
       end
     end
   end
+
+  describe '#evaluate_discount_worth' do
+    it 'returns discount to be applied to a basket' do
       outcome.set(product: jeans, quantity: 1, discount: 50)
-      outcome.remove(product: jeans)
-      outcome.get(product: jeans).must_equal(quantity: 0, discount: 0)
+        .evaluate_discount_worth(basket: @basket_struct.new(
+          { jeans.code => 1 },
+          jeans.code => jeans
+        )).must_equal jeans.price * 0.5
+    end
+
+    it 'only compute discount for the expected quantity' do
+      outcome.set(product: jeans, quantity: 2, discount: 50)
+        .evaluate_discount_worth(basket: @basket_struct.new(
+          { jeans.code => 4 },
+          jeans.code => jeans
+        )).must_equal jeans.price * 0.5 * 2
+    end
+
+    it 'only apply discount for product in basket' do
+      outcome.set(product: jeans, quantity: 2, discount: 50)
+        .evaluate_discount_worth(basket: @basket_struct.new(
+          { jeans.code => 1 },
+          jeans.code => jeans
+        )).must_equal jeans.price * 0.5
+    end
+
+    it 'compute discount on multiple products' do
+      outcome.set(product: jeans, quantity: 1, discount: 75)
+        .set(product: socks, quantity: 1, discount: 100)
+        .evaluate_discount_worth(basket: @basket_struct.new(
+          { jeans.code => 1, socks.code => 1 },
+          jeans.code => jeans, socks.code => socks
+        )).must_equal jeans.price * 0.75 + socks.price
+    end
+
+    describe 'with multiplier' do
+      it 'is is ignored when the quantity of product in the basket is lower' do
+        outcome.set(product: jeans, quantity: 1, discount: 50)
+          .evaluate_discount_worth(basket: @basket_struct.new(
+            { jeans.code => 1 },
+            jeans.code => jeans
+          ), multiplier: 2).must_equal(jeans.price * 0.5)
+      end
+
+      it 'is applied when the quantity of products in the basket allows it' do
+        outcome.set(product: jeans, quantity: 1, discount: 50)
+          .evaluate_discount_worth(basket: @basket_struct.new(
+            { jeans.code => 2 },
+            jeans.code => jeans
+          ), multiplier: 2).must_equal((jeans.price * 0.5) * 2)
+      end
     end
   end
 end

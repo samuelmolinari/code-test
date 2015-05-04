@@ -26,6 +26,22 @@ module MAndS
         self
       end
 
+      def match(basket: nil)
+        match_count = nil
+
+        @criteria_hash.each do |code, required_qty|
+          basket_qty = basket.get[code]
+
+          next unless basket_qty.to_i > 0
+
+          product_match = basket_qty / required_qty
+          match_count = match_count.nil? ? product_match : [product_match,
+                                                            match_count].min
+        end
+
+        match_count.to_i
+      end
+
       def valid?
         @criteria_hash.all? { |_, qty| qty > 0 }
       end

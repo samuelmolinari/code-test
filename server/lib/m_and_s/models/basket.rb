@@ -51,6 +51,19 @@ module MAndS
       cost
     end
 
+    def discount_worth
+      @offers.inject(Money.new(0, DEFAULT_CURRENCY)) do |discount, offer|
+        criteria_match_count = offer.criteria.match(basket: self)
+        amount = 0
+        if criteria_match_count > 0
+          amount = offer.outcome.evaluate_discount_worth(
+            basket: self,
+            multiplier: criteria_match_count)
+        end
+        discount + amount
+      end
+    end
+
     def build_catalog(products: [])
       @catalog = Hash[products.collect { |item| [item.code, item] }]
     end
