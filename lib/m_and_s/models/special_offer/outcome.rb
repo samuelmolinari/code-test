@@ -47,6 +47,14 @@ module MAndS
                                           basket_quantity: 0, multiplier: 0)
         amount = 0
 
+        # When a product is in the basket, the discount percentage is applied on
+        # its price, then multiplied depending on the amount of the same product
+        # that should be affected.
+        # This depends on the pre-set quantity given in the outome,
+        # or on the number of that products found in the basket
+        # if the pre-set value is too high. Another multiplier is provided
+        # by the criteria, if the criteria was matched more than once in the
+        # basket
         if basket_quantity.to_i > 0
           amount = price * (discount / 100.0) * [
             basket_quantity, quantity * multiplier].min

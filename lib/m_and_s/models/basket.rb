@@ -50,6 +50,8 @@ module MAndS
     def delivery_charge(amount: 0)
       cost = 0
 
+      # Go through each delivery minimum spend value, until the amount of the
+      # basket is lower than the required minimum spend
       @delivery_charges.each do |delivery_charge|
         if amount >= delivery_charge.min_spend
           cost = delivery_charge.cost
@@ -63,13 +65,17 @@ module MAndS
 
     def discount_worth
       @offers.inject(Money.new(0, DEFAULT_CURRENCY)) do |discount, offer|
-        criteria_match_count = offer.criteria.match(basket: self)
         amount = 0
+
+        # Check if the offers criteria matches the current basket,
+        # if it does, apply the offer's outcome
+        criteria_match_count = offer.criteria.match(basket: self)
         if criteria_match_count > 0
           amount = offer.outcome.evaluate_discount_worth(
             basket: self,
             multiplier: criteria_match_count)
         end
+
         discount + amount
       end
     end

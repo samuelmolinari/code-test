@@ -18,6 +18,12 @@ module MAndS
   # - Buy 2 pair of socks and 1 pair of jeans, get 1 pair of socks free
   #   - Criteria: 2 S01, 1 J01
   #   - Outcome: 1 J01, with a discount of 50%
+  #
+  # - Buy 3 pair of jeans, get 1 pair of socks free and a blouse with a discount
+  #   of 25%
+  #   - Criteria: 2 J01
+  #   - Outcome: 1 S01, with a discount of 100%,
+  #              and 1 B01 with a discount of 25%
   class SpecialOffer
     attr_accessor :criteria, :outcome
 

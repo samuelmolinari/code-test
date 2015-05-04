@@ -30,7 +30,7 @@ describe ::MAndS::SpecialOffer::Criteria do
   end
 
   describe '#set' do
-    it 'adds and replace any already existing quantity' do
+    it 'set quantity to a product' do
       criteria.add(product: jeans, quantity: 2)
         .set(product: jeans, quantity: 1)
         .get(product: jeans).must_equal 1
