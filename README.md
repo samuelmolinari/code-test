@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/samuelmolinari/code-test.svg?branch=master)](https://travis-ci.org/samuelmolinari/code-test)
+[![Code Climate](https://codeclimate.com/github/samuelmolinari/code-test/badges/gpa.svg)](https://codeclimate.com/github/samuelmolinari/code-test)
 
 ## Tests
 
