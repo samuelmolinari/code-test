@@ -6,9 +6,7 @@ module MAndS
     attr_accessor :name, :code, :price
 
     def initialize(name: '', code: '', price: Money.new(0, DEFAULT_CURRENCY))
-      @name = name
-      @code = code
-      @price = price
+      @name, @code, @price = name, code, price
     end
 
     def valid?

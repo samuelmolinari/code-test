@@ -22,13 +22,11 @@ module MAndS
     attr_accessor :criteria, :outcome
 
     def initialize(criteria: Criteria.new, outcome: Outcome.new)
-      @criteria = criteria
-      @outcome = outcome
+      @criteria, @outcome = criteria, outcome
     end
 
     def self.buy_one_get_one_half_price(product: nil)
-      criteria = Criteria.new
-      outcome = Outcome.new
+      criteria, outcome = Criteria.new, Outcome.new
 
       criteria.set(product: product, quantity: 2)
       outcome.set(product: product, quantity: 1, discount: 50)

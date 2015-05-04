@@ -7,10 +7,13 @@ module MAndS
         DeliveryChargesError.valid_delivery_charges?(delivery_charges)
       fail SpecialOffersError unless SpecialOffersError.valid_offers?(offers)
 
+      @offers, @basket = offers, {}
+
+      # Improve products accessibility
       @catalog = build_catalog(products: products)
+
+      # Order delivery charges by min_spend to work with algorithm
       @delivery_charges = delivery_charges.sort_by(&:min_spend)
-      @offers = offers
-      @basket = {}
     end
 
     def add(code: nil)
@@ -72,7 +75,7 @@ module MAndS
     end
 
     def build_catalog(products: [])
-      @catalog = Hash[products.collect { |item| [item.code, item] }]
+      Hash[products.collect { |item| [item.code, item] }]
     end
   end
 end

@@ -5,8 +5,7 @@ module MAndS
 
     def initialize(min_spend: Money.new(0, DEFAULT_CURRENCY),
                    cost: Money.new(0, DEFAULT_CURRENCY))
-      @min_spend = min_spend
-      @cost = cost
+      @min_spend, @cost = min_spend, cost
     end
 
     def valid?
