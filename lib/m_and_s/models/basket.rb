@@ -2,10 +2,9 @@ module MAndS
   # Basket class
   class Basket
     def initialize(products: [], delivery_charges: [], offers: [])
-      fail ProductsError unless ProductsError.valid_products?(products)
-      fail DeliveryChargesError unless
-        DeliveryChargesError.valid_delivery_charges?(delivery_charges)
-      fail SpecialOffersError unless SpecialOffersError.valid_offers?(offers)
+      fail ProductsError unless valid_products?(products)
+      fail DeliveryChargesError unless valid_delivery_charges?(delivery_charges)
+      fail SpecialOffersError unless valid_offers?(offers)
 
       @offers, @basket = offers, {}
 
@@ -82,6 +81,23 @@ module MAndS
 
     def build_catalog(products: [])
       Hash[products.collect { |item| [item.code, item] }]
+    end
+
+    def valid_delivery_charges?(delivery_charges)
+      delivery_charges.is_a?(Array) && !delivery_charges.empty? &&
+        delivery_charges.all? do |item|
+          item.is_a?(DeliveryCharge) && item.valid?
+        end
+    end
+
+    def valid_products?(products)
+      products.is_a?(Array) && !products.empty? &&
+        products.all? { |item| item.is_a?(Product) && item.valid? }
+    end
+
+    def valid_offers?(offer)
+      offer.is_a?(Array) && (offer.empty? ||
+        offer.all? { |item| item.is_a?(SpecialOffer) && item.valid? })
     end
   end
 end
