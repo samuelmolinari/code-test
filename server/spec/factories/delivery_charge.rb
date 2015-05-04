@@ -5,12 +5,12 @@ FactoryGirl.define do
   end
 
   factory :delivery_charge_below_90, class: ::MAndS::DeliveryCharge do
-    min_spend Money.new(50, ::MAndS::DEFAULT_CURRENCY)
+    min_spend Money.new(5000, ::MAndS::DEFAULT_CURRENCY)
     cost Money.new(295, ::MAndS::DEFAULT_CURRENCY)
   end
 
   factory :delivery_charge_above_90, class: ::MAndS::DeliveryCharge do
-    min_spend Money.new(90, ::MAndS::DEFAULT_CURRENCY)
+    min_spend Money.new(9000, ::MAndS::DEFAULT_CURRENCY)
     cost Money.new(0, ::MAndS::DEFAULT_CURRENCY)
   end
 
