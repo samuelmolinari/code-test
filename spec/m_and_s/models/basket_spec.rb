@@ -145,7 +145,7 @@ describe ::MAndS::Basket do
       describe 'when product is not in the basket' do
         it 'adds the product in the basket with a quantity of 1' do
           basket.add(code: jeans.code)
-          basket.get.must_equal(jeans.code => 1)
+            .get.must_equal(jeans.code => 1)
         end
       end
 
@@ -153,7 +153,7 @@ describe ::MAndS::Basket do
         it 'increment the product quantity by one' do
           basket.add(code: jeans.code)
             .add(code: jeans.code)
-          basket.get.must_equal(jeans.code => 2)
+            .get.must_equal(jeans.code => 2)
         end
       end
     end
@@ -165,7 +165,7 @@ describe ::MAndS::Basket do
         .add(code: socks.code)
         .add(code: socks.code)
         .add(code: blouse.code)
-      basket.sub_total.must_equal jeans.price + socks.price * 2 + blouse.price
+        .sub_total.must_equal jeans.price + socks.price * 2 + blouse.price
     end
   end
 
@@ -173,9 +173,9 @@ describe ::MAndS::Basket do
     it 'applies delivery charge and discount to sub total' do
       basket.add(code: jeans.code)
         .add(code: jeans.code)
-      basket.total.must_equal((jeans.price + jeans.price) +
-                              build(:delivery_charge_below_50).cost -
-                              (jeans.price * 0.5))
+        .total.must_equal((jeans.price + jeans.price) +
+                           build(:delivery_charge_below_50).cost -
+                           (jeans.price * 0.5))
     end
   end
 end
