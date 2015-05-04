@@ -37,6 +37,13 @@ module MAndS
       end
     end
 
+    def total
+      total = sub_total - discount_worth
+      delivery_charge = delivery_charge(amount: total)
+
+      total + delivery_charge
+    end
+
     private
 
     def delivery_charge(amount: 0)

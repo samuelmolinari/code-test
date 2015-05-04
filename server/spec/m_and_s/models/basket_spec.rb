@@ -169,4 +169,13 @@ describe ::MAndS::Basket do
     end
   end
 
+  describe '#total' do
+    it 'applies delivery charge and discount to sub total' do
+      basket.add(code: jeans.code)
+        .add(code: jeans.code)
+      basket.total.must_equal((jeans.price + jeans.price) +
+                              build(:delivery_charge_below_50).cost -
+                              (jeans.price * 0.5))
+    end
+  end
 end
